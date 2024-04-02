@@ -55,6 +55,7 @@ $user_type = $user_data[0]->user_type;
     <link rel="stylesheet" href="<?= $_SESSION["base_url"] ?>plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= $_SESSION["base_url"] ?>plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= $_SESSION["base_url"] ?>plugins/sweetalert2/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= $_SESSION["base_url"] ?>plugins/bootstrap-select/css/bootstrap-select.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">

@@ -154,6 +154,7 @@ if (isset($_POST["new_book"])) {
     $author = $_POST["author"];
     $genre = $_POST["genre"];
     $year_published = $_POST["year_published"];
+    $description = $_POST["description"];
     $image = $_FILES['image'];
 
     $uploaded_image = upload_image($image, "../dist/img/books/");
@@ -167,7 +168,7 @@ if (isset($_POST["new_book"])) {
             "icon" => "success"
         );
 
-        $model->MOD_ADD_NEW_BOOK($title, $author, $genre, $year_published, $uploaded_image);
+        $model->MOD_ADD_NEW_BOOK($title, $author, $genre, $year_published, $uploaded_image, $description);
 
         $user_details = $model->MOD_GET_USER_ACCOUNT_DETAILS($_SESSION["user_id"]);
 

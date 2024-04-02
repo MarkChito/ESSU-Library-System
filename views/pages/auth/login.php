@@ -97,6 +97,8 @@ $_SESSION["server"] = $base_url . "server/server.php";
             const base_url = "<?= $_SESSION["base_url"] ?>";
             const server = "<?= $_SESSION["server"] ?>";
 
+            disable_developer_functions(true);
+
             $("#login_form").submit(function() {
                 const username = $("#login_username").val();
                 const password = $("#login_password").val();
@@ -149,6 +151,34 @@ $_SESSION["server"] = $base_url . "server/server.php";
                     }
                 });
             })
+
+            function disable_developer_functions(enabled) {
+                if (enabled) {
+                    $(document).on('contextmenu', function() {
+                        return false;
+                    });
+
+                    $(document).on('keydown', function(event) {
+                        if (event.ctrlKey && event.shiftKey) {
+                            if (event.keyCode === 74) {
+                                return false;
+                            }
+
+                            if (event.keyCode === 67) {
+                                return false;
+                            }
+
+                            if (event.keyCode === 73) {
+                                return false;
+                            }
+                        }
+
+                        if (event.ctrlKey && event.keyCode === 85) {
+                            return false;
+                        }
+                    });
+                }
+            }
         })
     </script>
 

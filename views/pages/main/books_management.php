@@ -39,7 +39,7 @@
                                     <tr>
                                         <td><?= $book->title ?></td>
                                         <td><?= $book->author ?></td>
-                                        <td><?= $book->genre ?></td>
+                                        <td><?= str_replace(",", ", ", $book->genre) ?></td>
                                         <td><?= $book->year_published ?></td>
                                         <td class="text-center">
                                             <i class="fas fa-edit mr-1 text-success" role="button"></i>

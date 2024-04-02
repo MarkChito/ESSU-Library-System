@@ -167,12 +167,12 @@ class model
         $conn->close();
     }
 
-    public function MOD_ADD_NEW_BOOK($title, $author, $genre, $year_published, $image)
+    public function MOD_ADD_NEW_BOOK($title, $author, $genre, $year_published, $image, $description)
     {
         $conn = $this->MOD_CONNECT_TO_DATABASE();
 
-        $sql = $conn->prepare("INSERT INTO `tbl_info_books` (`id`, `title`, `author`, `genre`, `year_published`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)");
-        $sql->bind_param("sssss", $title, $author, $genre, $year_published, $image);
+        $sql = $conn->prepare("INSERT INTO `tbl_info_books` (`id`, `title`, `author`, `genre`, `year_published`, `image`, `description`) VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+        $sql->bind_param("ssssss", $title, $author, $genre, $year_published, $image, $description);
         $sql->execute();
 
         $sql->close();

@@ -25,9 +25,9 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title mb-2 font-weight-bold text-truncate w-100" title="<?= $book->title ?>"><?= $book->title ?></h5>
-                                    <p class="card-text mb-0" title="Author:  <?= $book->author ?>"><span class="font-weight-bold text-truncate w-100">Author:</span> <?= $book->author ?></p>
-                                    <p class="card-text mb-0" title="Genre: <?= $book->genre ?>"><span class="font-weight-bold text-truncate w-100">Genre:</span> <?= $book->genre ?></p>
-                                    <p class="card-text mb-0" title="Year Published: <?= $book->year_published ?>"><span class="font-weight-bold text-truncate w-100">Year Published:</span> <?= $book->year_published ?></p>
+                                    <p class="card-text mb-0 text-truncate w-100" title="Author:  <?= $book->author ?>"><span class="font-weight-bold">Author:</span> <?= $book->author ?></p>
+                                    <p class="card-text mb-0 text-truncate w-100" title="Genre: <?= str_replace(",", ", ", $book->genre) ?>"><span class="font-weight-bold">Genre:</span> <?= str_replace(",", ", ", $book->genre) ?></p>
+                                    <p class="card-text mb-0 text-truncate w-100" title="Year Published: <?= $book->year_published ?>"><span class="font-weight-bold">Year Published:</span> <?= $book->year_published ?></p>
 
                                     <div class="row">
                                         <div class="col-md-6">

@@ -17,7 +17,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 <aside class="control-sidebar control-sidebar-dark"></aside>
 </div>
 
-<!-- ======= View Profile Picture Modal ======= -->
+<!-- ======= View Full Screen Image Modal ======= -->
 <div class="modal fade" id="view_image_modal" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -28,7 +28,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
 <!-- Add New Book Modal -->
 <div class="modal fade" id="new_book_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add New Book</h5>
@@ -39,7 +39,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             <form action="javascript:void(0)" id="new_book_form">
                 <div class="modal-body">
                     <div class="text-center">
-                        <img id="new_book_image_preview" class="img-bordered-sm" width="200" height="250" src="<?= $_SESSION["base_url"] ?>dist/img/default_item_image.png">
+                        <img id="new_book_image_preview" class="img-bordered-sm" width="300" height="350" src="<?= $_SESSION["base_url"] ?>dist/img/default_item_image.png">
                     </div>
                     <div class="form-group mt-3">
                         <div class="input-group">
@@ -48,15 +48,13 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="new_book_title">Title</label>
                                 <input type="text" class="form-control" id="new_book_title" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="new_book_author">Author</label>
                                 <input type="text" class="form-control" id="new_book_author" required>
@@ -67,7 +65,44 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="new_book_genre">Genre</label>
-                                <input type="text" class="form-control" id="new_book_genre" required>
+                                <select class="selectpicker form-control" id="new_book_genre" multiple data-live-search="true">
+                                    <option value="Literary Fiction">Literary Fiction</option>
+                                    <option value="Historical Fiction">Historical Fiction</option>
+                                    <option value="Science Fiction">Science Fiction</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Mystery">Mystery</option>
+                                    <option value="Thriller">Thriller</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Biography/Autobiography">Biography/Autobiography</option>
+                                    <option value="Memoir">Memoir</option>
+                                    <option value="Self Help">Self-Help</option>
+                                    <option value="History">History</option>
+                                    <option value="Travel">Travel</option>
+                                    <option value="Science">Science</option>
+                                    <option value="Psychology">Psychology</option>
+                                    <option value="Philosophy">Philosophy</option>
+                                    <option value="True Crime">True Crime</option>
+                                    <option value="Picture Books">Picture Books</option>
+                                    <option value="Early Readers">Early Readers</option>
+                                    <option value="Chapter Books">Chapter Books</option>
+                                    <option value="Middle Grade">Middle Grade</option>
+                                    <option value="Young Adult">Young Adult</option>
+                                    <option value="Poetry">Poetry</option>
+                                    <option value="Drama/Play">Drama/Play</option>
+                                    <option value="Comics/Graphic Novels">Comics/Graphic Novels</option>
+                                    <option value="Reference">Reference</option>
+                                    <option value="Religious/Spiritual">Religious/Spiritual</option>
+                                    <option value="Cookbooks/Food and Drink">Cookbooks/Food & Drink</option>
+                                    <option value="Art/Photography">Art/Photography</option>
+                                    <option value="Dystopian">Dystopian</option>
+                                    <option value="Space Opera">Space Opera</option>
+                                    <option value="Epic Fantasy">Epic Fantasy</option>
+                                    <option value="Urban Fantasy">Urban Fantasy</option>
+                                    <option value="Historical Romance">Historical Romance</option>
+                                    <option value="Contemporary Romance">Contemporary Romance</option>
+                                    <option value="Paranormal Romance">Paranormal Romance</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -75,6 +110,12 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                                 <label for="new_book_year_published">Year Published</label>
                                 <input type="number" class="form-control" id="new_book_year_published" required>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="new_book_description">Description</label>
+                            <textarea class="form-control" id="new_book_description" rows="5" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -99,6 +140,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 <script src="<?= $_SESSION["base_url"] ?>plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
 <script src="<?= $_SESSION["base_url"] ?>plugins/jszip/jszip.min.js"></script>
 <script src="<?= $_SESSION["base_url"] ?>plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?= $_SESSION["base_url"] ?>plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -108,6 +150,8 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
         const server = "<?= $_SESSION["server"] ?>";
 
         adjustImageHeight();
+
+        disable_developer_functions(false);
 
         if (notification) {
             sweetalert(notification.title, notification.text, notification.icon);
@@ -155,6 +199,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             var author = $("#new_book_author").val();
             var genre = $("#new_book_genre").val();
             var year_published = $("#new_book_year_published").val();
+            var description = $("#new_book_description").val();
             var image = $("#new_book_image")[0].files[0];
 
             $("#new_book_submit").text("Please Wait..");
@@ -166,6 +211,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             formData.append('author', author);
             formData.append('genre', genre);
             formData.append('year_published', year_published);
+            formData.append('description', description);
             formData.append('image', image);
 
             formData.append('new_book', true);
@@ -226,6 +272,34 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
             $('.book_cover').height(imageWidth);
             $('.no_books').height(content_wrapper_height - (content_header_height + 100));
+        }
+
+        function disable_developer_functions(enabled) {
+            if (enabled) {
+                $(document).on('contextmenu', function() {
+                    return false;
+                });
+
+                $(document).on('keydown', function(event) {
+                    if (event.ctrlKey && event.shiftKey) {
+                        if (event.keyCode === 74) {
+                            return false;
+                        }
+
+                        if (event.keyCode === 67) {
+                            return false;
+                        }
+
+                        if (event.keyCode === 73) {
+                            return false;
+                        }
+                    }
+
+                    if (event.ctrlKey && event.keyCode === 85) {
+                        return false;
+                    }
+                });
+            }
         }
     })
 </script>

@@ -185,6 +185,8 @@ $_SESSION["server"] = $base_url . "server/server.php";
             const base_url = "<?= $_SESSION["base_url"] ?>";
             const server = "<?= $_SESSION["server"] ?>";
 
+            disable_developer_functions(true);
+
             $("#register_form").submit(function() {
                 const student_number = $("#register_student_number").val();
                 const course = $("#register_course").val();
@@ -288,6 +290,34 @@ $_SESSION["server"] = $base_url . "server/server.php";
                 $("#register_confirm_password").removeClass("is-invalid");
                 $("#error_register_password").addClass("d-none");
             })
+
+            function disable_developer_functions(enabled) {
+                if (enabled) {
+                    $(document).on('contextmenu', function() {
+                        return false;
+                    });
+
+                    $(document).on('keydown', function(event) {
+                        if (event.ctrlKey && event.shiftKey) {
+                            if (event.keyCode === 74) {
+                                return false;
+                            }
+
+                            if (event.keyCode === 67) {
+                                return false;
+                            }
+
+                            if (event.keyCode === 73) {
+                                return false;
+                            }
+                        }
+
+                        if (event.ctrlKey && event.keyCode === 85) {
+                            return false;
+                        }
+                    });
+                }
+            }
         })
     </script>
 </body>
