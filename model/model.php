@@ -116,6 +116,48 @@ class model
 
         return $userObjects;
     }
+    
+    public function MOD_GET_LATEST_BOOKS()
+    {
+        $conn = $this->MOD_CONNECT_TO_DATABASE();
+
+        $sql = $conn->prepare("SELECT * FROM `tbl_info_books` ORDER BY `id` DESC LIMIT 4");
+        $sql->execute();
+
+        $result = $sql->get_result();
+
+        $userObjects = array();
+
+        while ($userObject = $result->fetch_object()) {
+            $userObjects[] = $userObject;
+        }
+
+        $sql->close();
+        $conn->close();
+
+        return $userObjects;
+    }
+    
+    public function MOD_GET_REGISTERED_GENRE()
+    {
+        $conn = $this->MOD_CONNECT_TO_DATABASE();
+
+        $sql = $conn->prepare("SELECT GROUP_CONCAT(`genre` SEPARATOR ',') AS `registered_genre` FROM `tbl_info_books`");
+        $sql->execute();
+
+        $result = $sql->get_result();
+
+        $userObjects = array();
+
+        while ($userObject = $result->fetch_object()) {
+            $userObjects[] = $userObject;
+        }
+
+        $sql->close();
+        $conn->close();
+
+        return $userObjects;
+    }
 
     public function MOD_GET_STUDENTS()
     {
@@ -159,6 +201,28 @@ class model
         return $userObjects;
     }
 
+    public function MOD_GET_BOOKS_BY_GENRE($genre)
+    {
+        $conn = $this->MOD_CONNECT_TO_DATABASE();
+
+        $sql = $conn->prepare("SELECT * FROM `tbl_info_books` WHERE `genre` = ? ORDER BY `id` DESC LIMIT 4");
+        $sql->bind_param("s", $genre);
+        $sql->execute();
+
+        $result = $sql->get_result();
+
+        $userObjects = array();
+
+        while ($userObject = $result->fetch_object()) {
+            $userObjects[] = $userObject;
+        }
+
+        $sql->close();
+        $conn->close();
+
+        return $userObjects;
+    }
+    
     public function MOD_GET_SINGLE_ACTIVITY_LOGS($user_id)
     {
         $conn = $this->MOD_CONNECT_TO_DATABASE();
