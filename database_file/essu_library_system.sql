@@ -42,12 +42,12 @@ CREATE TABLE `tbl_info_activitylogs` (
 
 CREATE TABLE `tbl_info_books` (
   `id` int(11) NOT NULL,
-  `title` varchar(50) NOT NULL,
-  `author` varchar(30) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `author` varchar(255) NOT NULL,
   `genre` varchar(255) NOT NULL,
   `year_published` int(11) NOT NULL,
   `description` text NOT NULL,
-  `image` varchar(30) NOT NULL
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -65,8 +65,8 @@ INSERT INTO `tbl_info_books` (`id`, `title`, `author`, `genre`, `year_published`
 (8, 'Harry Potter and the Philosopher\'s Stone', 'J.K. Rowling', 'Fantasy', 1997, 'The first installment in the beloved Harry Potter series, this book introduces readers to the magical world of Hogwarts School of Witchcraft and Wizardry, following young Harry Potter as he discovers his true identity and confronts the dark wizard who killed his parents.', '8.png'),
 (9, 'The Alchemist', 'Paulo Coelho', 'Philosophy', 1988, 'A philosophical fable about following one\'s dreams and the journey of self-discovery, \"The Alchemist\" tells the story of Santiago, a shepherd boy who embarks on a quest for treasure, only to realize that the true riches lie in the lessons learned along the way.', '9.png'),
 (10, 'The Girl with the Dragon Tattoo', 'Stieg Larsson', 'Mystery,Thriller', 2005, 'A gripping mystery thriller, this novel follows investigative journalist Mikael Blomkvist and hacker Lisbeth Salander as they delve into a decades-old disappearance, uncovering dark secrets and corruption in Swedish society.', '10.png'),
-(12, 'Brave New World', 'Aldous Huxley', 'Dystopian', 1932, 'Set in a dystopian future, \"Brave New World\" explores a society where citizens are engineered and conditioned for specific roles, challenging notions of individuality, freedom, and the consequences of a technologically advanced yet morally bankrupt society.', '11.png'),
-(13, 'Pride and Prejudice', 'Jane Austen', 'Romance', 1813, 'A timeless classic, \"Pride and Prejudice\" follows the story of Elizabeth Bennet as she navigates societal expectations, love, and personal growth in Regency-era England, all while grappling with her initial prejudices towards the enigmatic Mr. Darcy.', '12.png');
+(11, 'Brave New World', 'Aldous Huxley', 'Dystopian', 1932, 'Set in a dystopian future, \"Brave New World\" explores a society where citizens are engineered and conditioned for specific roles, challenging notions of individuality, freedom, and the consequences of a technologically advanced yet morally bankrupt society.', '11.png'),
+(12, 'Pride and Prejudice', 'Jane Austen', 'Romance', 1813, 'A timeless classic, \"Pride and Prejudice\" follows the story of Elizabeth Bennet as she navigates societal expectations, love, and personal growth in Regency-era England, all while grappling with her initial prejudices towards the enigmatic Mr. Darcy.', '12.png');
 
 -- --------------------------------------------------------
 
@@ -210,13 +210,13 @@ ALTER TABLE `tbl_info_activitylogs`
 -- AUTO_INCREMENT for table `tbl_info_books`
 --
 ALTER TABLE `tbl_info_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_inventory`
 --
 ALTER TABLE `tbl_info_inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_offtake`
