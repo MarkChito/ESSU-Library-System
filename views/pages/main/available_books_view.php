@@ -7,6 +7,14 @@
                 <div class="col-sm-6">
                     <h1 class="m-0"><?= $current_tab ?></h1>
                 </div>
+                <?php if (isset($_GET["search"])) : ?>
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary float-right" onclick="location.href='available_books'">
+                            <i class="fas fa-home mr-1"></i>
+                            Back to Homepage
+                        </button>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
     </div>
@@ -30,11 +38,11 @@
                                     <p class="card-text mb-0 text-truncate w-100" title="Year Published: <?= $book->year_published ?>"><span class="font-weight-bold">Year Published:</span> <?= $book->year_published ?></p>
 
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <button type="button" class="btn btn-success mt-3 w-100 book_details">Book Details</button>
+                                        <div class="<?= $user_type != "student" ? "col-12" : "col-md-6" ?>">
+                                            <button type="button" class="btn btn-success mt-3 w-100 book_details" book_id="<?= $book->id ?>">Details</button>
                                         </div>
                                         <div class="col-md-6">
-                                            <button type="button" class="btn btn-primary mt-3 w-100 borrow_this_book" <?= $user_type != "student" ? "disabled" : null ?>>Borrow Book</button>
+                                            <button type="button" class="btn btn-primary mt-3 w-100 borrow_this_book <?= $user_type != "student" ? "d-none" : null ?>" book_id="<?= $book->id ?>">Borrow</button>
                                         </div>
                                     </div>
                                 </div>
@@ -44,8 +52,12 @@
                 <?php else : ?>
                     <div class="col-12 d-flex justify-content-center align-items-center no_books">
                         <div class="text-center">
-                            <h1>No Books Available</h1>
-                            <?php if ($user_type == "admin") : ?>
+                            <?php if (isset($_GET["search"])) : ?>
+                                <h1>No available search reults for "<?= $_GET["search"] ?>"</h1>
+                            <?php else : ?>
+                                <h1>No Books Available</h1>
+                            <?php endif ?>
+                            <?php if ($user_type == "admin" && !isset($_GET["search"])) : ?>
                                 <button class="btn btn-primary mt-2 px-3" onclick="location.href='books_management'">Add Books Now</button>
                             <?php endif ?>
                         </div>

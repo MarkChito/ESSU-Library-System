@@ -3,11 +3,15 @@
     RewriteBase /ESSU-Library-System/
 
     # Routing all "views/pages/auth/" files
-    RewriteRule ^login$ views/pages/auth/login.php [L]
-    RewriteRule ^create_an_account$ views/pages/auth/create_an_account.php [L]
+    RewriteRule ^login$ views/pages/auth/login_view.php [L]
+    RewriteRule ^create_an_account$ views/pages/auth/create_an_account_view.php [L]
 
     # Routing all "views/pages/main/" files
-    RewriteRule ^available_books$ views/pages/main/available_books.php [L]
-    RewriteRule ^books_management$ views/pages/main/books_management.php [L]
-    RewriteRule ^activity_logs$ views/pages/main/activity_logs.php [L]
+    RewriteRule ^available_books$ views/pages/main/available_books_view.php [L]
+    RewriteRule ^books_management$ views/pages/main/books_management_view.php [L]
+    RewriteRule ^students_management$ views/pages/main/students_management_view.php [L]
+    RewriteRule ^activity_logs$ views/pages/main/activity_logs_view.php [L]
+    RewriteRule ^profile$ views/pages/main/profile_view.php [L]
+    RewriteRule ^borrowed_books$ views/pages/main/borrowed_books_view.php [L]
+    RewriteRule ^books_inventory$ views/pages/main/books_inventory_view.php [L]
 </IfModule>

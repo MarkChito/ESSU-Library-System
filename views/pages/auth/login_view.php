@@ -30,7 +30,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
 </head>
 
 <body class="login">
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="d-block">
             <div style="max-width: 450px;" class="alert mb-2 text-center <?= isset($_SESSION["login_error"]) ? $_SESSION["login_error"]["type"] : null ?> <?= isset($_SESSION["login_error"]) ? null : "d-none" ?>" id="login_error">
                 <?= isset($_SESSION["login_error"]) ? $_SESSION["login_error"]["message"] : null ?>
@@ -140,10 +140,13 @@ $_SESSION["server"] = $base_url . "server/server.php";
 
                             $("#login_username").removeAttr("disabled");
                             $("#login_password").removeAttr("disabled");
+                            $("#login_remember_me").removeAttr("disabled");
 
                             $("#login_error").removeClass("d-none");
                             $("#login_error").addClass("alert-danger");
                             $("#login_error").html("Invalid Username or Password!");
+
+                            back_to_top();
                         }
                     },
                     error: function(_, _, error) {
@@ -151,6 +154,11 @@ $_SESSION["server"] = $base_url . "server/server.php";
                     }
                 });
             })
+
+            function back_to_top() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
 
             function disable_developer_functions(enabled) {
                 if (enabled) {

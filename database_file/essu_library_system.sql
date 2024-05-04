@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 08:49 AM
+-- Generation Time: May 04, 2024 at 07:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -33,60 +33,6 @@ CREATE TABLE `tbl_info_activitylogs` (
   `user_id` int(11) NOT NULL,
   `activity` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_info_activitylogs`
---
-
-INSERT INTO `tbl_info_activitylogs` (`id`, `log_date`, `user_id`, `activity`) VALUES
-(1, '2024-03-12 00:20:10', 2, 'Mark Chito R. Anteja created an account.'),
-(2, '2024-03-12 00:24:10', 1, 'Super Admin logged in to the system.'),
-(3, '2024-03-12 00:25:48', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(4, '2024-03-12 00:42:47', 1, 'Super Admin logged in to the system.'),
-(5, '2024-03-12 00:43:07', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(6, '2024-03-12 00:59:46', 1, 'Super Admin logged in to the system.'),
-(7, '2024-03-12 01:09:57', 1, 'Super Admin logged in to the system.'),
-(8, '2024-03-12 01:14:14', 1, 'Super Admin added a new book entitled Brave New World'),
-(9, '2024-03-12 01:21:01', 1, 'Super Admin logged out from the system.'),
-(10, '2024-03-12 01:21:10', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(11, '2024-03-12 01:21:42', 2, 'Mark Chito R. Anteja logged out from the system.'),
-(12, '2024-03-12 01:21:47', 1, 'Super Admin logged in to the system.'),
-(13, '2024-03-12 01:22:33', 1, 'Super Admin added a new book entitled Pride and Prejudice'),
-(14, '2024-03-12 17:31:07', 1, 'Super Admin logged in to the system.'),
-(15, '2024-03-12 17:31:40', 1, 'Super Admin logged in to the system.'),
-(16, '2024-03-12 17:34:01', 3, 'Mark Chito R. Anteja created an account.'),
-(17, '2024-03-13 10:05:00', 1, 'Super Admin logged in to the system.'),
-(18, '2024-03-13 11:49:46', 1, 'Super Admin logged in to the system.'),
-(19, '2024-03-13 12:55:09', 1, 'Super Admin logged out from the system.'),
-(20, '2024-03-13 12:56:16', 1, 'Super Admin logged in to the system.'),
-(21, '2024-03-13 12:58:01', 1, 'Super Admin logged out from the system.'),
-(22, '2024-03-13 12:59:25', 1, 'Super Admin logged in to the system.'),
-(23, '2024-03-13 12:59:29', 1, 'Super Admin logged out from the system.'),
-(24, '2024-03-13 12:59:47', 1, 'Super Admin logged in to the system.'),
-(25, '2024-03-13 12:59:50', 1, 'Super Admin logged out from the system.'),
-(26, '2024-03-13 12:59:52', 1, 'Super Admin logged in to the system.'),
-(27, '2024-03-13 12:59:55', 1, 'Super Admin logged out from the system.'),
-(28, '2024-03-13 13:00:12', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(29, '2024-03-13 13:00:30', 2, 'Mark Chito R. Anteja logged out from the system.'),
-(30, '2024-03-13 13:00:47', 1, 'Super Admin logged in to the system.'),
-(31, '2024-03-13 13:54:38', 1, 'Super Admin added a new book entitled dsadsa'),
-(32, '2024-03-13 14:00:09', 1, 'Super Admin logged out from the system.'),
-(33, '2024-03-13 14:00:15', 1, 'Super Admin logged in to the system.'),
-(34, '2024-04-02 12:27:49', 1, 'Super Admin logged in to the system.'),
-(35, '2024-04-02 12:28:46', 1, 'Super Admin logged out from the system.'),
-(36, '2024-04-02 12:29:14', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(37, '2024-04-02 12:31:01', 2, 'Mark Chito R. Anteja logged out from the system.'),
-(38, '2024-04-02 12:35:04', 1, 'Super Admin logged in to the system.'),
-(39, '2024-04-02 12:36:56', 1, 'Super Admin logged out from the system.'),
-(40, '2024-04-02 12:42:24', 2, 'Mark Chito R. Anteja logged in to the system.'),
-(41, '2024-04-02 12:55:13', 2, 'Mark Chito R. Anteja logged out from the system.'),
-(42, '2024-04-02 12:55:18', 1, 'Super Admin logged in to the system.'),
-(43, '2024-04-02 13:04:15', 1, 'Super Admin logged out from the system.'),
-(44, '2024-04-02 13:04:51', 1, 'Super Admin logged in to the system.'),
-(45, '2024-04-02 13:45:09', 1, 'Super Admin added a new book entitled sadsa'),
-(46, '2024-04-02 14:22:35', 1, 'Super Admin added a new book entitled dasdsa'),
-(47, '2024-04-02 14:35:49', 1, 'Super Admin added a new book entitled dasdsad'),
-(48, '2024-04-02 14:38:05', 1, 'Super Admin added a new book entitled dsadsa');
 
 -- --------------------------------------------------------
 
@@ -125,6 +71,51 @@ INSERT INTO `tbl_info_books` (`id`, `title`, `author`, `genre`, `year_published`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_info_inventory`
+--
+
+CREATE TABLE `tbl_info_inventory` (
+  `id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `inventory` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_info_inventory`
+--
+
+INSERT INTO `tbl_info_inventory` (`id`, `book_id`, `inventory`) VALUES
+(1, 1, 10),
+(2, 2, 10),
+(3, 3, 10),
+(4, 4, 10),
+(5, 5, 10),
+(6, 6, 10),
+(7, 7, 10),
+(8, 8, 10),
+(9, 9, 10),
+(10, 10, 10),
+(11, 12, 10),
+(12, 13, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_info_offtake`
+--
+
+CREATE TABLE `tbl_info_offtake` (
+  `id` int(11) NOT NULL,
+  `date_created` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_info_profiles`
 --
 
@@ -143,14 +134,6 @@ CREATE TABLE `tbl_info_profiles` (
   `email` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_info_profiles`
---
-
-INSERT INTO `tbl_info_profiles` (`id`, `useraccount_id`, `student_number`, `course`, `year`, `section`, `first_name`, `middle_name`, `last_name`, `birthday`, `mobile_number`, `email`, `address`) VALUES
-(1, 2, '17-00136', 'BSIT', 1, 'A', 'Mark Chito', 'Rizano', 'Anteja', '1994-07-23', '09511816599', '00anteja23@gmail.com', 'Blk 33 Lot 86 Phase 6 Victoria Villas Manila Hills, San Jose, Rodriguez, Rizal'),
-(2, 3, '17-00136', 'BSIT', 1, 'A', 'Mark Chito', 'Rizano', 'Anteja', '1994-07-23', '09511816599', '00python23@gmail.com', 'Hello World');
 
 -- --------------------------------------------------------
 
@@ -171,9 +154,7 @@ CREATE TABLE `tbl_info_useraccounts` (
 --
 
 INSERT INTO `tbl_info_useraccounts` (`id`, `name`, `username`, `password`, `user_type`) VALUES
-(1, 'Super Admin', 'admin', '$2y$10$qZaaUdNw9dwAlnMZDFfqSOj5mVKvlNC86XHgRRWs/UaKyQMHZINby', 'admin'),
-(2, 'Mark Chito R. Anteja', 'chito23', '$2y$10$f4Eho1fcI4qERPdJpYpyGu8knu.yr8MvR5QkyKBdoG2VqNXIj8r4u', 'student'),
-(3, 'Mark Chito R. Anteja', 'chito2394', 'admin123', 'student');
+(1, 'Administrator', 'admin', '$2y$10$4yve9mdeiFHBl7eZhAlMb.rYoEZRf5Je1ZrARJNJ/RpNZfJ5f5vBq', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -189,6 +170,18 @@ ALTER TABLE `tbl_info_activitylogs`
 -- Indexes for table `tbl_info_books`
 --
 ALTER TABLE `tbl_info_books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_info_inventory`
+--
+ALTER TABLE `tbl_info_inventory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_info_offtake`
+--
+ALTER TABLE `tbl_info_offtake`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -211,25 +204,37 @@ ALTER TABLE `tbl_info_useraccounts`
 -- AUTO_INCREMENT for table `tbl_info_activitylogs`
 --
 ALTER TABLE `tbl_info_activitylogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_books`
 --
 ALTER TABLE `tbl_info_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `tbl_info_inventory`
+--
+ALTER TABLE `tbl_info_inventory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tbl_info_offtake`
+--
+ALTER TABLE `tbl_info_offtake`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_profiles`
 --
 ALTER TABLE `tbl_info_profiles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_useraccounts`
 --
 ALTER TABLE `tbl_info_useraccounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

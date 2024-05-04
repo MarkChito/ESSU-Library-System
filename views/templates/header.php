@@ -35,6 +35,22 @@ $name = $user_data[0]->name;
 $username = $user_data[0]->username;
 $password = $user_data[0]->password;
 $user_type = $user_data[0]->user_type;
+
+if ($user_type == "student") {
+    $student_data = $model->MOD_GET_STUDENT_DATA($_SESSION["user_id"]);
+
+    $student_number = $student_data[0]->student_number;
+    $course = $student_data[0]->course;
+    $year = $student_data[0]->year;
+    $section = $student_data[0]->section;
+    $first_name = $student_data[0]->first_name;
+    $middle_name = $student_data[0]->middle_name;
+    $last_name = $student_data[0]->last_name;
+    $birthday = $student_data[0]->birthday;
+    $mobile_number = $student_data[0]->mobile_number;
+    $email = $student_data[0]->email;
+    $address = $student_data[0]->address;
+}
 ?>
 
 <!DOCTYPE html>
@@ -73,19 +89,20 @@ $user_type = $user_data[0]->user_type;
             </ul>
 
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item <?= $current_tab != "Available Books" ? "d-none" : null ?>">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
                     <div class="navbar-search-block">
-                        <form class="form-inline">
+                        <form class="form-inline" id="search_form" action="javascript:void(0)">
                             <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search Title, Author, or Genre" aria-label="Search">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search Title, Author, or Genre" aria-label="Search" id="search_input">
+
                                 <div class="input-group-append">
                                     <button class="btn btn-navbar" type="submit">
                                         <i class="fas fa-search"></i>
                                     </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                    <button class="btn btn-navbar" type="submit" data-widget="navbar-search">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
@@ -94,35 +111,14 @@ $user_type = $user_data[0]->user_type;
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-comments"></i>
-                        <!-- <span class="badge badge-danger navbar-badge">1</span> -->
+                <li class="nav-item">
+                    <a class="nav-link account_settings" href="javascript:void(0)" role="button" account_id="<?= $_SESSION["user_id"] ?>" account_name="<?= $name ?>" username="<?= $username ?>">
+                        <i class="fas fa-cog"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <!-- <a href="#" class="dropdown-item">
-                            <div class="media">
-                                <img src="<?= $_SESSION["base_url"] ?>dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">Brad Diesel</h3>
-                                    <p class="text-sm text-truncate">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                        </a>
-                        
-                        <div class="dropdown-divider"></div>
-
-                        <a href="messages" class="dropdown-item dropdown-footer">See All Messages</a> -->
-
-                        <div class="px-5 py-3 text-center">
-                            <strong class="text-muted">No Available Messages</strong>
-                        </div>
-                    </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link sidebar-links" location_link="logout" href="javascript:void(0)" role="button">
+                    <a class="nav-link text-danger sidebar-links" location_link="logout" href="javascript:void(0)" role="button">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </li>
@@ -130,7 +126,7 @@ $user_type = $user_data[0]->user_type;
         </nav>
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="dashboard" class="brand-link">
+            <a href="available_books" class="brand-link">
                 <img src="<?= $_SESSION["base_url"] ?>dist/img/logo.png" alt="ESSU Logo" class="brand-image img-circle elevation-3">
                 <span class="brand-text font-weight-light">ESSU Library System</span>
             </a>
@@ -165,43 +161,34 @@ $user_type = $user_data[0]->user_type;
                             </a>
                         </li>
 
+                        <li class="nav-header">LIBRARY CATALOG</li>
                         <?php if ($user_type == "admin") : ?>
-                            <li class="nav-header">LIBRARY CATALOG</li>
                             <li class="nav-item disabled">
                                 <a href="javascript:void(0)" location_link="books_management" class="nav-link sidebar-links <?= $current_tab == "Books Management" ? "active" : null ?>">
                                     <i class="nav-icon fas fa-book-open"></i>
                                     <p>Books Management</p>
                                 </a>
                             </li>
+                            <li class="nav-item disabled">
+                                <a href="javascript:void(0)" location_link="books_inventory" class="nav-link sidebar-links <?= $current_tab == "Books Inventory" ? "active" : null ?>">
+                                    <i class="nav-icon fas fa-box"></i>
+                                    <p>Books Inventory</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link sidebar-links">
+                                <a href="javascript:void(0)" location_link="students_management" class="nav-link sidebar-links <?= $current_tab == "Students Management" ? "active" : null ?>">
                                     <i class="nav-icon fas fa-graduation-cap"></i>
                                     <p>Students Management</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link sidebar-links">
-                                    <i class="nav-icon fas fa-exchange-alt"></i>
-                                    <p>Borowing & Returning</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link sidebar-links">
-                                    <i class="nav-icon fas fa-dollar-sign"></i>
-                                    <p>Fines Management</p>
-                                </a>
-                            </li>
                         <?php endif ?>
 
-                        <?php if ($user_type == "student") : ?>
-                            <li class="nav-header">LIBRARY CATALOG</li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link sidebar-links">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>Borrowed Books</p>
-                                </a>
-                            </li>
-                        <?php endif ?>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)" location_link="borrowed_books" class="nav-link sidebar-links <?= $current_tab == "Borrowed Books" ? "active" : null ?>">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>Borrowed Books</p>
+                            </a>
+                        </li>
 
                         <li class="nav-item">
                             <a href="javascript:void(0)" location_link="activity_logs" class="nav-link sidebar-links <?= $current_tab == "Activity Logs" ? "active" : null ?>">
@@ -211,18 +198,14 @@ $user_type = $user_data[0]->user_type;
                         </li>
 
                         <li class="nav-header">ACCOUNT SETTINGS</li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link sidebar-links">
-                                <i class="nav-icon fas fa-user"></i>
-                                <p>Profile</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link sidebar-links">
-                                <i class="nav-icon fas fa-cog"></i>
-                                <p>Account</p>
-                            </a>
-                        </li>
+                        <?php if ($user_type == "student") : ?>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" location_link="profile" class="nav-link sidebar-links <?= $current_tab == "My Profile" ? "active" : null ?>">
+                                    <i class="nav-icon fas fa-user"></i>
+                                    <p>Profile</p>
+                                </a>
+                            </li>
+                        <?php endif ?>
                         <li class="nav-item">
                             <a href="javascript:void(0)" location_link="logout" class="nav-link sidebar-links">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>

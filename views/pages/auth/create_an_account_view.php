@@ -30,7 +30,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
 </head>
 
 <body class="login">
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="d-block">
             <div class="alert alert-success mb-2 text-center d-none" id="register_error">
                 Registration is successful. You can now <a href="<?= $_SESSION["base_url"] ?>" style="text-decoration: none;"><strong>sign in</strong></a> your account!
@@ -57,6 +57,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 <div class="form-group">
                                     <label for="register_student_number" class="mb-0">Student Number</label>
                                     <input type="text" class="form-control" id="register_student_number" required>
+                                    <small class="text-danger d-none" id="error_register_student_number">Student Number is already in use</small>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -185,7 +186,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
             const base_url = "<?= $_SESSION["base_url"] ?>";
             const server = "<?= $_SESSION["server"] ?>";
 
-            disable_developer_functions(true);
+            // disable_developer_functions(true);
 
             $("#register_form").submit(function() {
                 const student_number = $("#register_student_number").val();
@@ -242,7 +243,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            if (response) {
+                            if (!response.error_username && !response.error_student_number) {
                                 $("#register_error").removeClass("d-none");
 
                                 $("#register_student_number").val("");
@@ -259,9 +260,22 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 $("#register_username").val("");
                                 $("#register_password").val("");
                                 $("#register_confirm_password").val("");
+
+                                back_to_top();
                             } else {
-                                $("#register_username").addClass("is-invalid");
-                                $("#error_register_username").removeClass("d-none");
+                                if (response.error_username) {
+                                    $("#register_username").focus();
+
+                                    $("#register_username").addClass("is-invalid");
+                                    $("#error_register_username").removeClass("d-none");
+                                }
+
+                                if (response.error_student_number) {
+                                    $("#register_student_number").focus();
+
+                                    $("#register_student_number").addClass("is-invalid");
+                                    $("#error_register_student_number").removeClass("d-none");
+                                }
                             }
 
                             $("#register_submit").html("Sign up");
@@ -274,6 +288,11 @@ $_SESSION["server"] = $base_url . "server/server.php";
                 }
             })
 
+            $("#register_student_number").keydown(function() {
+                $("#register_student_number").removeClass("is-invalid");
+                $("#error_register_student_number").addClass("d-none");
+            })
+            
             $("#register_username").keydown(function() {
                 $("#register_username").removeClass("is-invalid");
                 $("#error_register_username").addClass("d-none");
@@ -290,6 +309,11 @@ $_SESSION["server"] = $base_url . "server/server.php";
                 $("#register_confirm_password").removeClass("is-invalid");
                 $("#error_register_password").addClass("d-none");
             })
+
+            function back_to_top() {
+                document.body.scrollTop = 0; // For Safari
+                document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            }
 
             function disable_developer_functions(enabled) {
                 if (enabled) {

@@ -36,8 +36,8 @@
                                     <?php $user_data = $model->MOD_GET_USER_ACCOUNT_DETAILS($activity_log->user_id) ?>
                                     <tr>
                                         <td><?= date("F j, Y g:i A", strtotime($activity_log->log_date)) ?></td>
-                                        <td><?= $user_data[0]->name ?></td>
-                                        <td><?= str_replace($name, "You", $activity_log->activity) ?></td>
+                                        <td><?= $user_data && $user_data[0]->name ? $user_data[0]->name : "Deleted Account" ?></td>
+                                        <td><?= str_replace(array($name, "his/her"), array("You", "your"), $activity_log->activity) ?></td>
                                     </tr>
                                 <?php endforeach ?>
                             <?php endif ?>
