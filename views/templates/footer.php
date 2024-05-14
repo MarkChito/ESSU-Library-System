@@ -553,12 +553,34 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
         const notification = <?= isset($_SESSION["notification"]) ? json_encode($_SESSION["notification"]) : json_encode(null) ?>;
         const base_url = "<?= $_SESSION["base_url"] ?>";
         const server = "<?= $_SESSION["server"] ?>";
+        const user_type = "<?= $_SESSION["user_type"] ?>";
 
         var current_tab = "<?= $current_tab ?>";
 
         adjustImageHeight();
 
-        // disable_developer_functions(true);
+        disable_developer_functions(true);
+
+        if (isMobileOrTablet() && user_type == "admin") {
+            var formData = new FormData();
+
+            formData.append('invalid_login', true);
+
+            $.ajax({
+                url: server,
+                data: formData,
+                type: 'POST',
+                dataType: 'JSON',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    location.href = base_url;
+                },
+                error: function(_, _, error) {
+                    console.error(error);
+                }
+            });
+        }
 
         switch (current_tab) {
             case "Available Books":
@@ -1488,6 +1510,19 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                         return false;
                     }
                 });
+            }
+        }
+
+        function isMobileOrTablet() {
+            var mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            var tabletRegex = /Tablet|iPad/i;
+
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+            if (mobileRegex.test(navigator.userAgent) || (tabletRegex.test(navigator.userAgent) && screenWidth < 1025)) {
+                return true;
+            } else {
+                return false;
             }
         }
     })

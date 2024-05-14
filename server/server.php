@@ -119,6 +119,7 @@ if (isset($_POST["login"])) {
             }
 
             $_SESSION["user_id"] = $username_exists[0]->id;
+            $_SESSION["user_type"] = $username_exists[0]->user_type;
             $_SESSION["current_tab"] = "Available Books";
 
             $log_date = date('Y-m-d H:i:s');
@@ -614,7 +615,7 @@ if (isset($_POST["update_inventory"])) {
 
 if (isset($_POST["set_as_returned"])) {
     $offtake_id = $_POST["offtake_id"];
-    
+
     $offtake_data = $model->MOD_GET_OFFTAKE_DATA($offtake_id);
     $inventory_data = $model->MOD_GET_INVENTORY_DATA($offtake_data[0]->book_id);
 
@@ -638,4 +639,12 @@ if (isset($_POST["set_as_returned"])) {
     );
 
     echo json_encode(true);
+}
+
+if (isset($_POST["invalid_login"])) {
+    $_SESSION["login_error"] = array("type" => "alert-danger", "message" => "Admin has no access.");
+
+    unset($_SESSION["user_id"]);
+
+    echo json_decode(true);
 }

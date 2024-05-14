@@ -37,7 +37,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
             </div>
 
             <form action="javascript:void(0)" id="login_form">
-                <div class="card glass-card" style="width: 450px; height: auto;">
+                <div class="card glass-card" style="width: 450px; height: auto;" id="login_form_card">
                     <div class="card-body" style="color: white;">
                         <div class="w-100 text-center">
                             <img src="<?= $_SESSION["base_url"] ?>dist/img/logo.png" style="width: 150px; height: 150px;" alt="ESSU Logo">
@@ -72,7 +72,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 </div>
                                 <div class="col-6">
                                     <span class="float-end">
-                                        Need an account?
+                                        <span id="div_need_account">Need an account?</span>
                                         <a href="create_an_account" style="text-decoration: none;">
                                             <strong class="text-white">Sign up</strong>
                                         </a>
@@ -98,6 +98,11 @@ $_SESSION["server"] = $base_url . "server/server.php";
             const server = "<?= $_SESSION["server"] ?>";
 
             disable_developer_functions(true);
+
+            if (isMobileOrTablet()) {
+                $("#div_need_account").text("No Account?");
+                $("#login_form_card").attr("style", "width: 100%;");
+            }
 
             $("#login_form").submit(function() {
                 const username = $("#login_username").val();
@@ -185,6 +190,19 @@ $_SESSION["server"] = $base_url . "server/server.php";
                             return false;
                         }
                     });
+                }
+            }
+
+            function isMobileOrTablet() {
+                var mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+                var tabletRegex = /Tablet|iPad/i;
+
+                var screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+                if (mobileRegex.test(navigator.userAgent) || (tabletRegex.test(navigator.userAgent) && screenWidth < 1025)) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         })
