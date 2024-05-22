@@ -147,6 +147,7 @@ if (isset($_POST["register"])) {
     $mobile_number = $_POST["mobile_number"];
     $email = $_POST["email"];
     $address = $_POST["address"];
+    $image = $_FILES['image'];
 
     $name = $_POST["name"];
     $username = $_POST["username"];
@@ -171,17 +172,21 @@ if (isset($_POST["register"])) {
     $response = array_merge($error_username, $error_student_number);
 
     if ($errors == 0) {
-        $model->MOD_CREATE_AN_ACCOUNT($name, $username, password_hash($password, PASSWORD_BCRYPT));
+        $uploaded_image = upload_image($image, "../dist/img/users/");
 
-        $username_exists = $model->MOD_CHECK_USERNAME($username);
+        if ($uploaded_image) {
+            $model->MOD_CREATE_AN_ACCOUNT($name, $username, password_hash($password, PASSWORD_BCRYPT));
 
-        $model->MOD_ADD_PROFILE($username_exists[0]->id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address);
+            $username_exists = $model->MOD_CHECK_USERNAME($username);
 
-        $log_date = date('Y-m-d H:i:s');
-        $activity = $name . " created an account.";
-        $user_id = $username_exists[0]->id;
+            $model->MOD_ADD_PROFILE($username_exists[0]->id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address, $uploaded_image);
 
-        $model->MOD_ADD_ACTIVITY_LOG($log_date, $user_id, $activity);
+            $log_date = date('Y-m-d H:i:s');
+            $activity = $name . " created an account.";
+            $user_id = $username_exists[0]->id;
+
+            $model->MOD_ADD_ACTIVITY_LOG($log_date, $user_id, $activity);
+        }
     }
 
     echo json_encode($response);
@@ -325,6 +330,7 @@ if (isset($_POST["update_account"])) {
     $username = $_POST["username"];
     $password = isset($_POST["password"]) && !empty($_POST["password"]) ? $_POST["password"] : null;
     $old_username = $_POST["old_username"];
+    $image = isset($_FILES['image']) ? $_FILES['image'] : null;
 
     $response = false;
     $errors = 0;
@@ -338,6 +344,14 @@ if (isset($_POST["update_account"])) {
             $model->MOD_UPDATE_ACCOUNT($name, $username, password_hash($password, PASSWORD_BCRYPT), $id);
         } else {
             $model->MOD_UPDATE_ACCOUNT_NO_PASSWORD($name, $username, $id);
+        }
+
+        if ($image) {
+            $uploaded_image = upload_image($image, "../dist/img/users/");
+
+            if ($uploaded_image) {
+                $model->MOD_UPDATE_PROFILE_IMAGE($uploaded_image, $id);
+            }
         }
 
         $user_details = $model->MOD_GET_USER_ACCOUNT_DETAILS($_SESSION["user_id"]);

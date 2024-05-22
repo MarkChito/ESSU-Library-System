@@ -18,7 +18,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="<?= $base_url ?>dist/img/default_user_image.png" alt="User profile picture">
+                                <img role="button" class="profile-user-img clickable_image" style="width: 100px; height: 100px; border-radius: 50%;" src="<?= $base_url ?>dist/img/users/<?= $image ?>" alt="User profile picture">
                             </div>
 
                             <h3 class="profile-username text-center"><?= $name ?></h3>
@@ -37,7 +37,7 @@
                                 </li>
                             </ul>
 
-                            <a href="javascript:void(0)" class="btn btn-primary btn-block account_settings" account_id="<?= $_SESSION["user_id"] ?>" account_name="<?= $name ?>" username="<?= $username ?>"><b>Account Settings</b></a>
+                            <a href="javascript:void(0)" class="btn btn-primary btn-block account_settings" account_id="<?= $_SESSION["user_id"] ?>" account_name="<?= $name ?>" username="<?= $username ?>" image="<?= $image ?>"><b>Account Settings</b></a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,10 @@
                                             <div class="col-sm-9">
                                                 <select id="update_profile_course" class="custom-select" required>
                                                     <option value disabled selected></option>
-                                                    <option value="BSIT" <?= $course == "BSIT" ? "selected" : null ?>>BSIT</option>
+                                                    <option value="BSIT" <?= $course == "BSIT" ? "selected" : null ?>>BS Information Technology</option>
+                                                    <option value="BSC" <?= $course == "BSC" ? "selected" : null ?>>BS Criminology</option>
+                                                    <option value="BSA" <?= $course == "BSA" ? "selected" : null ?>>BS Agriculture</option>
+                                                    <option value="BSBA" <?= $course == "BSBA" ? "selected" : null ?>>BS Business Adminsitration</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -79,7 +82,7 @@
                                         <div class="form-group row">
                                             <label for="update_profile_section" class="col-sm-3 col-form-label">Section</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="update_profile_section" value="<?= $section ?>" required>
+                                                <input type="text" class="form-control" id="update_profile_section" maxlength="1" value="<?= $section ?>" required>
                                             </div>
                                         </div>
                                         <div class="form-group row">

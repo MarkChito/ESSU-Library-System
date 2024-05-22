@@ -257,12 +257,12 @@ class model
         $conn->close();
     }
 
-    public function MOD_ADD_PROFILE($useraccount_id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address)
+    public function MOD_ADD_PROFILE($useraccount_id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address, $image)
     {
         $conn = $this->MOD_CONNECT_TO_DATABASE();
 
-        $sql = $conn->prepare("INSERT INTO `tbl_info_profiles` (`id`, `useraccount_id`, `student_number`, `course`, `year`, `section`, `first_name`, `middle_name`, `last_name`, `birthday`, `mobile_number`, `email`, `address`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $sql->bind_param("ssssssssssss", $useraccount_id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address);
+        $sql = $conn->prepare("INSERT INTO `tbl_info_profiles` (`id`, `useraccount_id`, `student_number`, `course`, `year`, `section`, `first_name`, `middle_name`, `last_name`, `birthday`, `mobile_number`, `email`, `address`, `image`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $sql->bind_param("sssssssssssss", $useraccount_id, $student_number, $course, $year, $section, $first_name, $middle_name, $last_name, $birthday, $mobile_number, $email, $address, $image);
         $sql->execute();
 
         $sql->close();
@@ -363,6 +363,18 @@ class model
         $conn->close();
     }
 
+    public function MOD_UPDATE_PROFILE_IMAGE($uploaded_image, $id)
+    {
+        $conn = $this->MOD_CONNECT_TO_DATABASE();
+
+        $sql = $conn->prepare("UPDATE `tbl_info_profiles` SET `image` = ? WHERE `useraccount_id` = ?");
+        $sql->bind_param("ss", $uploaded_image, $id);
+        $sql->execute();
+
+        $sql->close();
+        $conn->close();
+    }
+    
     public function MOD_UPDATE_ACCOUNT_NAME($name, $id)
     {
         $conn = $this->MOD_CONNECT_TO_DATABASE();

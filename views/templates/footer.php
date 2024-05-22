@@ -307,6 +307,15 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             </div>
             <form action="javascript:void(0)" id="update_account_form">
                 <div class="modal-body">
+                    <div class="text-center">
+                        <img id="update_account_image_preview" src="<?= $base_url ?>dist/img/default_user_image.png" class="img-bordered" style="width: 150px; height: 150px; border-radius: 50%;">
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="input-group">
+                            <input type="file" class="custom-file-input" id="update_account_image" accept=".jpg, .jpeg, .png">
+                            <label class="custom-file-label" for="update_account_image" id="update_account_image_label">Choose file</label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="update_account_name">Name</label>
                         <input type="text" id="update_account_name" class="form-control" <?= $user_type != "admin" ? "readonly" : null ?> required>
@@ -559,7 +568,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
 
         adjustImageHeight();
 
-        disable_developer_functions(true);
+        // disable_developer_functions(true);
 
         if (isMobileOrTablet() && user_type == "admin") {
             var formData = new FormData();
@@ -807,12 +816,16 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             const id = $(this).attr("account_id");
             const name = $(this).attr("account_name");
             const username = $(this).attr("username");
+            const image = $(this).attr("image");
+
+            $("#update_account_image_preview").attr("src", base_url + "dist/img/users/" + image);
+            $("#update_account_image_label").text(image);
 
             $("#update_account_id").val(id);
             $("#update_account_name").val(name);
             $("#update_account_username").val(username);
             $("#update_account_old_username").val(username);
-
+            
             $("#update_account_modal").modal("show");
         })
 
@@ -823,6 +836,7 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
             const password = $("#update_account_password").val();
             const confirm_password = $("#update_account_confirm_password").val();
             const old_username = $("#update_account_old_username").val();
+            const image = $("#update_account_image")[0].files[0];
 
             if ((password || confirm_password) && password != confirm_password) {
                 $("#update_account_password").addClass("is-invalid");
@@ -838,8 +852,9 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                 formData.append('name', name);
                 formData.append('username', username);
                 formData.append('password', password);
+                formData.append('image', image);
                 formData.append('old_username', old_username);
-
+                
                 formData.append('update_account', true);
 
                 $.ajax({
@@ -864,6 +879,17 @@ if (basename(__FILE__) == basename($_SERVER["SCRIPT_FILENAME"])) {
                         console.error(error);
                     }
                 });
+            }
+        })
+
+        $('#update_account_image').change(function(e) {
+            var selectedFile = e.target.files[0];
+
+            if (selectedFile) {
+                var fileName = selectedFile.name;
+
+                $('#update_account_image_label').text(fileName);
+                $('#update_account_image_preview').attr('src', URL.createObjectURL(selectedFile));
             }
         })
 

@@ -53,6 +53,19 @@ $_SESSION["server"] = $base_url . "server/server.php";
                         </div>
 
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <img class="img-bordered" id="register_image_preview" src="<?= $base_url ?>dist/img/default_user_image.png" style="width: 150px; height: 150px; border-radius: 50%;">
+                                </div>
+                                <div class="form-group mt-3">
+                                    <div class="input-group">
+                                        <input type="file" class="custom-file-input" id="register_image" accept=".jpg, .jpeg, .png" required>
+                                        <label class="custom-file-label" for="register_image" id="register_image_label">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="register_student_number" class="mb-0">Student Number</label>
@@ -65,7 +78,10 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                     <label for="register_course" class="mb-0">Course</label>
                                     <select id="register_course" class="custom-select" required>
                                         <option value="" selected disabled></option>
-                                        <option value="BSIT">BSIT</option>
+                                        <option value="BSIT">BS Information Technology</option>
+                                        <option value="BSC">BS Criminology</option>
+                                        <option value="BSA">BS Agriculture</option>
+                                        <option value="BSBA">BS Business Adminsitration</option>
                                     </select>
                                 </div>
                             </div>
@@ -84,11 +100,10 @@ $_SESSION["server"] = $base_url . "server/server.php";
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label for="register_section" class="mb-0">Section</label>
-                                    <input type="text" class="form-control" id="register_section" required>
+                                    <input type="text" class="form-control text-center" id="register_section" maxlength="1" required>
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -109,7 +124,6 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -130,7 +144,6 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -139,7 +152,6 @@ $_SESSION["server"] = $base_url . "server/server.php";
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -188,6 +200,17 @@ $_SESSION["server"] = $base_url . "server/server.php";
 
             // disable_developer_functions(true);
 
+            $('#register_image').change(function(e) {
+                var selectedFile = e.target.files[0];
+
+                if (selectedFile) {
+                    var fileName = selectedFile.name;
+
+                    $('#register_image_label').text(fileName);
+                    $('#register_image_preview').attr('src', URL.createObjectURL(selectedFile));
+                }
+            })
+
             $("#register_form").submit(function() {
                 const student_number = $("#register_student_number").val();
                 const course = $("#register_course").val();
@@ -203,6 +226,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                 const username = $("#register_username").val();
                 const password = $("#register_password").val();
                 const confirm_password = $("#register_confirm_password").val();
+                const image = $("#register_image")[0].files[0];
 
                 const middle_initial = middle_name ? ' ' + middle_name.charAt(0) + '.' : '';
                 const name = first_name + middle_initial + ' ' + last_name;
@@ -228,6 +252,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                     formData.append('mobile_number', mobile_number);
                     formData.append('email', email);
                     formData.append('address', address);
+                    formData.append('image', image);
 
                     formData.append('name', name);
                     formData.append('username', username);
@@ -292,7 +317,7 @@ $_SESSION["server"] = $base_url . "server/server.php";
                 $("#register_student_number").removeClass("is-invalid");
                 $("#error_register_student_number").addClass("d-none");
             })
-            
+
             $("#register_username").keydown(function() {
                 $("#register_username").removeClass("is-invalid");
                 $("#error_register_username").addClass("d-none");

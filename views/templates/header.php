@@ -50,6 +50,7 @@ if ($user_type == "student") {
     $mobile_number = $student_data[0]->mobile_number;
     $email = $student_data[0]->email;
     $address = $student_data[0]->address;
+    $image = $student_data[0]->image;
 }
 ?>
 
@@ -112,7 +113,7 @@ if ($user_type == "student") {
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link account_settings" href="javascript:void(0)" role="button" account_id="<?= $_SESSION["user_id"] ?>" account_name="<?= $name ?>" username="<?= $username ?>">
+                    <a class="nav-link account_settings" href="javascript:void(0)" role="button" account_id="<?= $_SESSION["user_id"] ?>" account_name="<?= $name ?>" username="<?= $username ?>" image="<?= $image ?>">
                         <i class="fas fa-cog"></i>
                     </a>
                 </li>
@@ -134,7 +135,7 @@ if ($user_type == "student") {
             <div class="sidebar">
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="<?= $_SESSION["base_url"] ?>dist/img/default_user_image.png" class="img-circle elevation-2" alt="User Image">
+                        <img src="<?= $_SESSION["base_url"] ?><?= $user_type == "student" ? "dist/img/users/" . $image : "dist/img/default_user_image.png" ?>" class="elevation-2" style="width: 33.59px; height: 33.59px; border-radius: 50%;" alt="User Image">
                     </div>
                     <div class="info">
                         <span class="d-block text-truncate text-white"><?= $name ?></span>
