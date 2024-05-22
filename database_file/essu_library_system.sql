@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 07:05 PM
+-- Generation Time: May 22, 2024 at 05:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -42,8 +42,8 @@ CREATE TABLE `tbl_info_activitylogs` (
 
 CREATE TABLE `tbl_info_books` (
   `id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `author` varchar(255) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `author` varchar(30) NOT NULL,
   `genre` varchar(255) NOT NULL,
   `year_published` int(11) NOT NULL,
   `description` text NOT NULL,
@@ -95,8 +95,8 @@ INSERT INTO `tbl_info_inventory` (`id`, `book_id`, `inventory`) VALUES
 (8, 8, 10),
 (9, 9, 10),
 (10, 10, 10),
-(11, 12, 10),
-(12, 13, 10);
+(11, 11, 10),
+(12, 12, 10);
 
 -- --------------------------------------------------------
 
@@ -112,6 +112,13 @@ CREATE TABLE `tbl_info_offtake` (
   `quantity` int(11) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_info_offtake`
+--
+
+INSERT INTO `tbl_info_offtake` (`id`, `date_created`, `user_id`, `book_id`, `quantity`, `status`) VALUES
+(1, '2024-05-14 19:12:58', 2, 12, 1, 'Returned');
 
 -- --------------------------------------------------------
 
@@ -132,7 +139,8 @@ CREATE TABLE `tbl_info_profiles` (
   `birthday` varchar(20) NOT NULL,
   `mobile_number` varchar(15) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `address` varchar(100) NOT NULL
+  `address` varchar(100) NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -210,19 +218,19 @@ ALTER TABLE `tbl_info_activitylogs`
 -- AUTO_INCREMENT for table `tbl_info_books`
 --
 ALTER TABLE `tbl_info_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_inventory`
 --
 ALTER TABLE `tbl_info_inventory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_offtake`
 --
 ALTER TABLE `tbl_info_offtake`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_info_profiles`
